@@ -5,12 +5,9 @@ var Book = require('../models/book');
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-  console.log("BOOK - FindAll:");
-  console.log(Book.findAll());
-  console.log("poop");
-  //var booksById = await Book.findAll();
-  //res.json('index')
-  //console.log(booksById.toJSON());
+  var booksById = await Book.findAll();
+  res.json('index')
+  console.log(booksById.toJSON());
 });
 
 module.exports = router;
