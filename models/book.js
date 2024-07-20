@@ -14,15 +14,20 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Book.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     title: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
           notNull:{
-              msg: "Hey, this title is null. Not even blank, just null. Fix that!"
+              msg: "This book needs a title. You're making bookstore employees' lives more difficult."
           },
           notEmpty: {
-              msg: "Please stop being lazy and add a title for your movie!"
+              msg: "This book needs a title. You're making bookstore employees' lives more difficult."
           }
       }
     },
@@ -31,10 +36,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
           notNull:{
-              msg: "Hey, this author is null. Not even blank, just null. Fix that!"
+              msg: "Who wrote this book? Yeah, I don't know either. We'll never know until you add an author."
           },
           notEmpty: {
-              msg: "Please stop being lazy and add a author for your movie!"
+              msg: "Who wrote this book? Yeah, I don't know either. We'll never know until you add an author."
           }
       }
       

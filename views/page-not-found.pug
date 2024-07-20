@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= "Page Not Found"
+  p=`Sorry! The page you were looking for at "${path}" was not found.`
+  p=`Error: ${error}`
+  br
+  p
+    a(class='button' href="/") Home
+  
+
+
+
+

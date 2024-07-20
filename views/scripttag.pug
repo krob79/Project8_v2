@@ -1,0 +1,47 @@
+script.
+      var problems = [];
+      var form = document.forms[0];
+      var allInputs = document.querySelectorAll(`input`);
+      allInputs.forEach( (el) => {
+        if(el.type == "text" || el.type == "number"){
+          console.log("adding");
+          el.addEventListener('blur', checkField, false);
+        }
+        
+      });
+      function blurListener(e){
+        console.log(e.target);
+      }
+      function checkField(e){
+        console.log(`----Checking ${e.target.name}....`);
+        let elName = e.target.name;
+        let selectElement = document.querySelector(`input[name=${elName}]`);
+        let updateButton = form.querySelector(`input[type=submit]`);
+        let selectedValue = selectElement.value;
+        if(selectElement.value == ""){
+          selectElement.classList.add("inputerror");
+          selectElement.placeholder = `Please add a value for the ${elName}.`;
+          if(problems.indexOf(elName) < 0){
+            problems.push(elName);
+          }
+        }else{
+          selectElement.classList.remove("inputerror");
+          if(problems.indexOf(elName) > -1){
+            problems = problems.filter( (el) => el != elName);
+          }
+        }
+
+        if(problems.length > 0){
+            console.log("Disabling Update Button");
+            updateButton.disabled = true;
+            updateButton.classList.add("disabled");
+        }else{
+            console.log("Enabling Update Button");
+            updateButton.disabled = false;
+            updateButton.classList.remove("disabled");
+        }
+        
+
+        //
+        
+      }

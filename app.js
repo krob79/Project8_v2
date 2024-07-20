@@ -15,7 +15,7 @@ try {
   console.log('****Connection has been established successfully****');
   
 } catch (error) {
-  console.error('Unable to connect to the database:', error);
+  console.error('****Unable to connect to the database:', error);
 }
 
 var app = express();
@@ -40,13 +40,23 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
+
+  console.log(`----REQUEST IS: ${req.path}`);
   // set locals, only providing error in development
+  
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.path = req.path;
 
   // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  if(err.status === 404){
+    res.status(404).render('page-not-found', {err});
+  }else{
+    err.message = err.message || "Oops! Something went wrong on the server.";
+    res.status(err.status || 500).render('error', {err});
+  }
+  console.log(`----ERROR: ${err.status} - ${err.message}`);
+
 });
 
 module.exports = app;
