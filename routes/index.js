@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var { Book } = require('../models/');
+const { Op } = require("sequelize");
 
 let bookstatus = "";
 let bookstatusanimation = "focus-in-expand";
@@ -19,6 +20,47 @@ router.get('/books', async function(req, res, next) {
   res.locals.bookstatusanimation = bookstatusanimation;
   bookstatus = "";
   res.render('all-books');
+});
+
+router.post('/books', async function(req, res, next) {
+  console.log(`SEARCHING FOR BOOKS:`);
+  console.log(req.body.searchterm);
+  let search = req.body.searchterm;
+  try{
+    const bookResults = await Book.findAll({
+      where: {
+        [Op.or]:{
+          author:  {
+            [Op.like]: `%${search}%`
+          },
+          title:  {
+            [Op.like]: `%${search}%`
+          },
+          genre:  {
+            [Op.like]: `%${search}%`
+          },
+          year:  {
+            [Op.like]: `%${search}%`
+          }
+        }
+        
+      }
+    });
+    console.log("----RESULTS:");
+    console.log(bookResults);
+    res.locals.bookstatus = `Results found for '${search}'`
+    res.locals.bookstatusanimation = 'heartbeat';
+    res.locals.allBooks = bookResults;
+    res.render('all-books');
+  }catch(error){
+    console.log("---ERROR FINDING BOOK RESULTS");
+    console.log(error);
+    res.locals.errormessage = "Oops! There was an error:";
+    // throw error;
+    res.render('book-not-found');
+  }
+  
+
 });
 
 router.get('/books/new', async function(req, res, next) {

@@ -3,8 +3,9 @@ extends layout
 block content
     h1=`Books`
     p(class=`${bookstatusanimation} bookstatus`)=`${bookstatus}`
-    p
-    a(class="button shadow-pop-bl" href="/books/new")=`Create New Book`
+    div(class="ui")
+        a(class="button" href="/books/new")=`Create New Book`
+        include ./form-search.pug
     table(class="booktable")
         thead
             tr
