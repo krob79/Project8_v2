@@ -6,14 +6,14 @@ block content
     div(class="ui")
         a(class="button" href="/books/new")=`Create New Book`
         include ./form-search.pug
-    table(class="booktable")
+    table(id="booktable")
         thead
             tr
                 th=`Title`
                 th=`Author`
                 th=`Genre`
                 th=`Year`
-        tbody
+        tbody(id='booklist')
             each book in allBooks
                 tr
                     td
@@ -21,3 +21,4 @@ block content
                     td=book.author
                     td=book.genre
                     td=book.year
+    include ./paginate.pug
