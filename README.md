@@ -3,6 +3,8 @@
 This is a SQL Library Manager, where you can perform CRUD operations on the database of book entries. 
 For a little razzle dazzle, I've added some scripts in the pug files for extra form validation and a little CSS animation for status updates.
 
+[View Project](https://project8v2-production.up.railway.app/books)
+
 ## Languages & Tools Used
 ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=blue&style=flat-square)
 ![HTML5](https://img.shields.io/badge/-HTML5-E34F26?logo=html5&logoColor=white&style=flat-square)
